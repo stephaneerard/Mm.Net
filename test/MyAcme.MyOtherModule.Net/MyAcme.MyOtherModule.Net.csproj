@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="appsettings_my_acme_other_module.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="appsettings_my_acme_other_module.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</AdditionalFiles>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Frenchex.Dev.Mm.Net.Abstractions.Module\Frenchex.Dev.Mm.Net.Abstractions.Module.csproj" />
+	</ItemGroup>
+
+</Project>
