@@ -23,7 +23,12 @@ public interface IModule
     /// <param name="fileProvider"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task ConfigureConfigurationAsync(IConfigurationManager configurationManager,
-        ModuleLoadingInformation moduleLoadingInformation, ConfigurationSourceBuilder configurationSourceBuilder,
-        IFileProvider fileProvider, CancellationToken cancellationToken = default);
+    Task ConfigureConfigurationAsync
+    (
+        IConfigurationManager configurationManager,
+        ModuleLoadingInformation moduleLoadingInformation, 
+        ConfigurationSourceBuilder configurationSourceBuilder,
+        IFileProvider fileProvider, 
+        CancellationToken cancellationToken = default
+    );
 }

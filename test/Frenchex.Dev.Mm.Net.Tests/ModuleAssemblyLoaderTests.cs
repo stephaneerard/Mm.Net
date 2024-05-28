@@ -19,7 +19,7 @@ public class Tests
 
         var moduleAssemblyLoader = new ModuleAssemblyLoader();
 
-        var loadingResult = await moduleAssemblyLoader.LoadAsync(assemblyToLoad);
+        IModuleAssemblyLoadingResult loadingResult = await moduleAssemblyLoader.LoadAsync(assemblyToLoad);
 
         loadingResult.ShouldNotBeNull();
         loadingResult.ShouldBeAssignableTo<ModuleAssemblyLoadedSuccessfully>();
