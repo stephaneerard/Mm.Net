@@ -30,8 +30,6 @@ public class MyAcmeNet : ModularMonolith
             }
         });
 
-        var modules = await InternalInitializeAsync(options, cancellationToken);
-
-
+        await InternalInitializeAsync(options, cancellationToken);
     }
 }
