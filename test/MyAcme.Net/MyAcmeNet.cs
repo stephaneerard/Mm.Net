@@ -9,6 +9,8 @@ public class MyAcmeNet : ModularMonolith
     {
     }
 
+    /// <exception cref="InvalidConfigurationException">Thrown when cannot load a specific assembly.</exception>
+    /// <exception cref="System.Security.SecurityException">The caller does not have the required permissions.</exception>
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
         var options = Options.Create<ModularMonolithOptions>(new ModularMonolithOptions()
