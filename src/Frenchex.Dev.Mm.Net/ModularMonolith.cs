@@ -13,7 +13,7 @@ namespace Frenchex.Dev.Mm.Net;
 public class ModularMonolith
 {
     private readonly IModuleAssemblyLoader _moduleAssemblyLoader;
-    private readonly ConfigurationManager? _configurationManager = new ConfigurationManager();
+    private readonly ConfigurationManager _configurationManager = new ConfigurationManager();
     private List<IModule>? _loadedModules;
 
     /// <summary>
@@ -25,8 +25,7 @@ public class ModularMonolith
     /// <summary>
     /// 
     /// </summary>
-    public IConfiguration Configuration => _configurationManager
-                                           ?? throw new InvalidAsynchronousStateException("Configuration is not set.");
+    public IConfiguration Configuration => _configurationManager;
 
     /// <summary>
     /// 
