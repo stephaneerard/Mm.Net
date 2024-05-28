@@ -13,7 +13,7 @@ namespace Frenchex.Dev.Mm.Net;
 public class ModularMonolith
 {
     private readonly IModuleAssemblyLoader _moduleAssemblyLoader;
-    private readonly ConfigurationManager _configurationManager = new ConfigurationManager();
+    private readonly ConfigurationManager _configurationManager = new ();
     private List<IModule>? _loadedModules;
 
     /// <summary>
@@ -41,6 +41,7 @@ public class ModularMonolith
 
     /// <summary>
     /// </summary>
+    /// <param name="hostEnvironment"></param>
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
@@ -49,6 +50,7 @@ public class ModularMonolith
     /// <exception cref="System.Security.SecurityException">The caller does not have the required permissions.</exception>
     protected async Task<IList<IModule>> InternalInitializeAsync
     (
+        IHostEnvironment hostEnvironment,
         IOptions<ModularMonolithOptions> options,
         CancellationToken cancellationToken = default
     )
@@ -65,12 +67,13 @@ public class ModularMonolith
             {
                 HostEnvironment = new HostEnvironment()
                 {
-                    ApplicationName = "MyAcme.dll",
-                    EnvironmentName = "Test",
-                    ContentRootPath = Path.GetFullPath(moduleInformation.Path)
+                    ApplicationName = hostEnvironment.ApplicationName,
+                    ContentRootFileProvider = hostEnvironment.ContentRootFileProvider,
+                    ContentRootPath = Path.GetFullPath(moduleInformation.Path),
+                    EnvironmentName = hostEnvironment.EnvironmentName
                 },
                 ModuleHostPath = Path.GetDirectoryName(moduleInformation.Path)
-                                 ?? throw new InvalidOperationException($"{moduleInformation.Path} error")
+                                    ?? throw new InvalidOperationException($"{moduleInformation.Path} error")
             };
 
             var fileProvider = new PhysicalFileProvider(Path.GetFullPath(moduleLoadingInformation.ModuleHostPath));
@@ -90,6 +93,7 @@ public class ModularMonolith
         return loadedModules;
     }
 }
+
 
 public class HostEnvironment : IHostEnvironment
 {

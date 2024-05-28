@@ -30,6 +30,13 @@ public class MyAcmeNet : ModularMonolith
             }
         });
 
-        await InternalInitializeAsync(options, cancellationToken);
+        var hostEnvironment = new HostEnvironment()
+        {
+            ApplicationName = "MyAcmeNet.dll",
+            EnvironmentName = "Test",
+            ContentRootPath = Path.GetDirectoryName(typeof(MyAcmeNet).Assembly.Location)
+        };
+
+        await InternalInitializeAsync(hostEnvironment, options, cancellationToken);
     }
 }
