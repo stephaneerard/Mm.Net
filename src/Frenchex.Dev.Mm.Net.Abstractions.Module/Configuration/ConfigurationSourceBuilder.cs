@@ -1,4 +1,4 @@
-﻿namespace Frenchex.Dev.Mm.Net.Abstractions.Module;
+﻿namespace Frenchex.Dev.Mm.Net.Abstractions.Module.Configuration;
 
 public class ConfigurationSourceBuilder
 {

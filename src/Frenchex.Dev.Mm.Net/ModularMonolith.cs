@@ -1,9 +1,11 @@
-﻿using System.ComponentModel;
-using Frenchex.Dev.Mm.Net.Abstractions.Module;
+﻿using Frenchex.Dev.Mm.Net.Abstractions.Module;
+using Frenchex.Dev.Mm.Net.Abstractions.Module.AssemblyLoading;
+using Frenchex.Dev.Mm.Net.Abstractions.Module.Configuration;
+using Frenchex.Dev.Mm.Net.Abstractions.Module.FileProvider;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using System.ComponentModel;
 
 namespace Frenchex.Dev.Mm.Net;
 
@@ -13,7 +15,8 @@ namespace Frenchex.Dev.Mm.Net;
 public class ModularMonolith
 {
     private readonly IModuleAssemblyLoader _moduleAssemblyLoader;
-    private readonly ConfigurationManager _configurationManager = new ();
+    private readonly IFileProviderProvider _fileProviderProvider;
+    private readonly ConfigurationManager _configurationManager = new();
     private List<IModule>? _loadedModules;
 
     /// <summary>
@@ -31,12 +34,15 @@ public class ModularMonolith
     /// 
     /// </summary>
     /// <param name="moduleAssemblyLoader"></param>
+    /// <param name="fileProviderProvider"></param>
     public ModularMonolith
     (
-        IModuleAssemblyLoader moduleAssemblyLoader
+        IModuleAssemblyLoader moduleAssemblyLoader,
+        IFileProviderProvider fileProviderProvider
     )
     {
         _moduleAssemblyLoader = moduleAssemblyLoader;
+        _fileProviderProvider = fileProviderProvider;
     }
 
     /// <summary>
@@ -63,7 +69,7 @@ public class ModularMonolith
                 loadedModules.Add(success.LoadedModule);
             else throw new InvalidConfigurationException(moduleInformation);
 
-            var moduleLoadingInformation = new ModuleLoadingInformation()
+            var moduleLoadingInformation = new ModuleAssemblyLoadingInformation()
             {
                 HostEnvironment = new HostEnvironment()
                 {
@@ -76,29 +82,19 @@ public class ModularMonolith
                                     ?? throw new InvalidOperationException($"{moduleInformation.Path} error")
             };
 
-            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(moduleLoadingInformation.ModuleHostPath));
+            var fileProvider = _fileProviderProvider.Provide(Path.GetFullPath(moduleLoadingInformation.ModuleHostPath));
 
-            await success.LoadedModule.ConfigureConfigurationAsync
-                (
+            await success.LoadedModule.ConfigureConfigurationAsync(
                     configurationManager: _configurationManager
-                    , moduleLoadingInformation: moduleLoadingInformation
+                    , moduleAssemblyLoadingInformation: moduleLoadingInformation
                     , configurationSourceBuilder: new ConfigurationSourceBuilder()
                     , fileProvider: fileProvider
                     , cancellationToken: cancellationToken
-                    );
+                );
         }
 
         _loadedModules = loadedModules;
 
         return loadedModules;
     }
-}
-
-
-public class HostEnvironment : IHostEnvironment
-{
-    public string EnvironmentName { get; set; }
-    public string ApplicationName { get; set; }
-    public string ContentRootPath { get; set; }
-    public IFileProvider ContentRootFileProvider { get; set; }
 }

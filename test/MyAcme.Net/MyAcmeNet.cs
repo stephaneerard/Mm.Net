@@ -1,11 +1,13 @@
 ﻿using Frenchex.Dev.Mm.Net;
+using Frenchex.Dev.Mm.Net.Abstractions.Module.AssemblyLoading;
+using Frenchex.Dev.Mm.Net.Abstractions.Module.FileProvider;
 using Microsoft.Extensions.Options;
 
 namespace MyAcme.Net;
 
 public class MyAcmeNet : ModularMonolith
 {
-    public MyAcmeNet(IModuleAssemblyLoader moduleAssemblyLoader) : base(moduleAssemblyLoader)
+    public MyAcmeNet(IModuleAssemblyLoader moduleAssemblyLoader, IFileProviderProvider fileProviderProvider) : base(moduleAssemblyLoader, fileProviderProvider)
     {
     }
 

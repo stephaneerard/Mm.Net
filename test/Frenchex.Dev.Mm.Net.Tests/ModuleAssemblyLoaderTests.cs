@@ -1,4 +1,5 @@
-using Frenchex.Dev.Mm.Net.Abstractions.Module;
+using Frenchex.Dev.Mm.Net.Abstractions.Module.AssemblyLoading;
+using Frenchex.Dev.Mm.Net.Abstractions.Module.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
@@ -31,7 +32,7 @@ public class Tests
         var configurationManager = new ConfigurationManager();
         configurationManager.Sources.Clear();
 
-        var moduleLoadingInformation = new ModuleLoadingInformation()
+        var moduleLoadingInformation = new ModuleAssemblyLoadingInformation()
         {
             HostEnvironment = new FakeHostEnvironment()
             {
@@ -74,7 +75,7 @@ public class Tests
         var configurationManager = new ConfigurationManager();
         configurationManager.Sources.Clear();
 
-        var moduleLoadingInformation = new ModuleLoadingInformation()
+        var moduleLoadingInformation = new ModuleAssemblyLoadingInformation()
         {
             HostEnvironment = new FakeHostEnvironment()
             {
@@ -104,7 +105,7 @@ public class Tests
         anotherLoadingResult.ShouldBeAssignableTo<ModuleAssemblyLoadedSuccessfully>();
         var anotherLoadedAssembly = (anotherLoadingResult as ModuleAssemblyLoadedSuccessfully)!.LoadedModule;
 
-        var anotherModuleLoadingInformation = new ModuleLoadingInformation()
+        var anotherModuleLoadingInformation = new ModuleAssemblyLoadingInformation()
         {
             HostEnvironment = new FakeHostEnvironment()
             {

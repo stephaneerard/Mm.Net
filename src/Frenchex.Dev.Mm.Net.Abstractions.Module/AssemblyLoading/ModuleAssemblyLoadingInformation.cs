@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Hosting;
 
-namespace Frenchex.Dev.Mm.Net.Abstractions.Module;
+namespace Frenchex.Dev.Mm.Net.Abstractions.Module.AssemblyLoading;
 
 /// <summary>
 /// 
 /// </summary>
-public class ModuleLoadingInformation
+public class ModuleAssemblyLoadingInformation
 {
     /// <summary>
     /// 

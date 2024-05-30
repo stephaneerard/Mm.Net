@@ -2,7 +2,7 @@
 using System.Runtime.Loader;
 using Frenchex.Dev.Mm.Net.Abstractions.Module;
 
-namespace Frenchex.Dev.Mm.Net;
+namespace Frenchex.Dev.Mm.Net.Abstractions.Module.AssemblyLoading;
 
 /// <summary>
 /// 
@@ -26,7 +26,7 @@ public class ModuleAssemblyLoader : IModuleAssemblyLoader
     /// Note: In .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="MemberAccessException" />, instead.</exception>
     /// <exception cref="TargetInvocationException">The constructor being called throws an exception.</exception>
     /// <exception cref="MemberAccessException">Cannot create an instance of an abstract class, or this member was invoked with a late-binding mechanism.</exception>
-    /// <exception cref="System.Runtime.InteropServices.InvalidComObjectException">The COM type was not obtained through <see cref="Overload:System.Type.GetTypeFromProgID" /> or <see cref="System.Type.GetTypeFromCLSID" />.</exception>
+    /// <exception cref="System.Runtime.InteropServices.InvalidComObjectException">The COM type was not obtained through <see cref="Overload:System.Type.GetTypeFromProgID" /> or <see cref="Type.GetTypeFromCLSID" />.</exception>
     /// <exception cref="TypeLoadException"><paramref name="type" /> is not a valid type.</exception>
     /// <exception cref="MissingMethodException">No matching public constructor was found.
     /// Note: In .NET for Windows Store apps or the Portable Class Library, catch the base class exception, <see cref="MissingMemberException" />, instead.</exception>

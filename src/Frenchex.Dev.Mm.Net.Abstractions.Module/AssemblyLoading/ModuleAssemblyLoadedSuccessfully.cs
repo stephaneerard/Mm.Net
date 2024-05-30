@@ -1,6 +1,6 @@
 ﻿using Frenchex.Dev.Mm.Net.Abstractions.Module;
 
-namespace Frenchex.Dev.Mm.Net;
+namespace Frenchex.Dev.Mm.Net.Abstractions.Module.AssemblyLoading;
 
 /// <summary>
 /// 

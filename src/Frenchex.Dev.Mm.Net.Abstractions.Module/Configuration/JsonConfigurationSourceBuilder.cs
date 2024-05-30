@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.FileProviders;
 
-namespace Frenchex.Dev.Mm.Net.Abstractions.Module;
+namespace Frenchex.Dev.Mm.Net.Abstractions.Module.Configuration;
 
 public class JsonConfigurationSourceBuilder
 {

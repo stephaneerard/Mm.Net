@@ -1,6 +1,8 @@
-﻿using System.Reflection;
+﻿using Frenchex.Dev.Mm.Net.Abstractions.Module.AssemblyLoading;
+using Frenchex.Dev.Mm.Net.Abstractions.Module.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
+using System.Reflection;
 
 namespace Frenchex.Dev.Mm.Net.Abstractions.Module;
 
@@ -18,7 +20,7 @@ public interface IModule
     /// 
     /// </summary>
     /// <param name="configurationManager"></param>
-    /// <param name="moduleLoadingInformation"></param>
+    /// <param name="moduleAssemblyLoadingInformation"></param>
     /// <param name="configurationSourceBuilder"></param>
     /// <param name="fileProvider"></param>
     /// <param name="cancellationToken"></param>
@@ -26,7 +28,7 @@ public interface IModule
     Task ConfigureConfigurationAsync
     (
         IConfigurationManager configurationManager,
-        ModuleLoadingInformation moduleLoadingInformation, 
+        ModuleAssemblyLoadingInformation moduleAssemblyLoadingInformation, 
         ConfigurationSourceBuilder configurationSourceBuilder,
         IFileProvider fileProvider, 
         CancellationToken cancellationToken = default
